@@ -69,7 +69,6 @@ class PersonalTest {
 
     submitAnswer(answer) {
         if(this.questionArray.length <= this.progress + 1){ // 질문이 끝났으면
-            console.log('더이상 질문이 없습니다.');
             this.page = 2;
             this.render();
             return;
