@@ -39,7 +39,7 @@ body {
 }
 
 .intro_container img {
-    max-width: 100px;
+    max-width: 200px;
     margin-bottom: 20px;
     position: relative;
     right: 5px;
@@ -56,22 +56,21 @@ body {
 .content_container button {
     display: block;
     border: none;
-    background: rgb(165 119 65);
+    background: rgb(145 116 83);
     max-width: 250px;
     padding: 0 20px;
     width: 100%;
     height: 40px;
     font-size: 12px;
     cursor: pointer;
-}
-
-.content_container button:hover {
-    background: #555;
+    -webkit-tap-highlight-color : rgba(0,0,0,0) !important;
 }
 
 .content_container button:active {
     transform: scale(0.98);
+    background: rgb(112, 79, 41);
 }
+
 
 .test_container button + button {
     margin-top: 10px;
