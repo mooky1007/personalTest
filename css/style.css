@@ -20,8 +20,8 @@ body {
 
 .personalTest_container {
     display: flex;
-    width: 300px;
-    max-width: 80%;
+    width: 450px;
+    max-width: 90%;
     min-height: 600px;
 }
 
@@ -82,8 +82,11 @@ body {
 }
 
 .result_infor {
+    max-height: 50vh;
+    overflow: auto;
     font-size: 12px;
     margin: 30px 0;
+    word-break: keep-all;
 }
 
 .result_infor li + li {
