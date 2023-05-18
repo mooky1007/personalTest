@@ -84,9 +84,39 @@ body {
 .result_infor {
     max-height: 50vh;
     overflow: auto;
-    font-size: 12px;
     margin: 30px 0;
+    padding-right: 10px;
+}
+
+.result_infor li {
+    position: relative;
+    font-size: 12px;
     word-break: keep-all;
+    padding-left: 10px;
+}
+
+.result_infor li::marker {
+    display: none;
+}
+
+.result_infor li::before {
+    content: "•";
+    color: rgb(248, 193, 129);
+    position: absolute;
+    left: 0;
+    top: 0px;
+}
+
+.result_infor::-webkit-scrollbar {
+    width: 3px;
+}
+
+.result_infor::-webkit-scrollbar-thumb {
+    background: rgb(248, 193, 129);
+}
+
+.result_infor::-webkit-scrollbar-track {
+    background: transparent
 }
 
 .result_infor li + li {
