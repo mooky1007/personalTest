@@ -6,14 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인 성향 검사</title>
     <script src="./js/personalTest.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
     
-    <div class="personalTest_container"></div>
+    <div class="personalTest_container">
+        <div class="intro_container content_container">
+            <h1>간단 성향 테스트</h1>
+            <button class="start" type="button" data-action="start">시작하기</button>
+        </div>
+        <div class="test_container content_container">
+            <h2>
+                <span class="progress">0</span>
+                <span class="question">질문</span>
+            </h2>
+            <div class="answer_container">
+                <button class="answer" type="button" data-answer="a">답변 A</button>
+                <button class="answer" type="button" data-answer="b">답변 B</button>
+            </div>
+        </div>
+        <div class="result_container content_container">
+            <h2 class="result_text">당신의 성향은 OOO입니다.</h2>
+            <button class="restart" type="button" data-action="restart">다시하기</button>
+        </div>
+    </div>
 
     <script>
         const personalTest = new PersonalTest('.personalTest_container');
-        personalTest.start();
     </script>
 </body>
 </html>

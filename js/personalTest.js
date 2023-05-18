@@ -8,28 +8,10 @@ class PersonalTest {
                 {
                     question: '나는 혼자있을때 더 편안함을 느낀다.',
                     answer: { a: '그렇다', b: '아니다' },
-                },{
-                    question: '나는 혼자있을때 더 편안함을 느낀다.',
-                    answer: { a: '그렇다', b: '아니다' },
-                },{
-                    question: '나는 혼자있을때 더 편안함을 느낀다.',
-                    answer: { a: '그렇다', b: '아니다' },
-                },{
-                    question: '나는 혼자있을때 더 편안함을 느낀다.',
-                    answer: { a: '그렇다', b: '아니다' },
                 },
             ],
             SN: [
                 {
-                    question: '재밌는 영화를 보고 난 후 나는...',
-                    answer: { a: '재밌었다. 밥이나 먹으러 가야지', b: '인터넷에서 영화 해석을 검색해본다.' },
-                },{
-                    question: '재밌는 영화를 보고 난 후 나는...',
-                    answer: { a: '재밌었다. 밥이나 먹으러 가야지', b: '인터넷에서 영화 해석을 검색해본다.' },
-                },{
-                    question: '재밌는 영화를 보고 난 후 나는...',
-                    answer: { a: '재밌었다. 밥이나 먹으러 가야지', b: '인터넷에서 영화 해석을 검색해본다.' },
-                },{
                     question: '재밌는 영화를 보고 난 후 나는...',
                     answer: { a: '재밌었다. 밥이나 먹으러 가야지', b: '인터넷에서 영화 해석을 검색해본다.' },
                 },
@@ -38,31 +20,10 @@ class PersonalTest {
                 {
                     question: '누군가 나를 싫어하는 걸 알았을 때.',
                     answer: { a: '어쩌라는건지', b: '왜 나를 싫어할까?' },
-                },{
-                    question: '누군가 나를 싫어하는 걸 알았을 때.',
-                    answer: { a: '어쩌라는건지', b: '왜 나를 싫어할까?' },
-                },{
-                    question: '누군가 나를 싫어하는 걸 알았을 때.',
-                    answer: { a: '어쩌라는건지', b: '왜 나를 싫어할까?' },
                 },
             ],
             JP: [
                 {
-                    question: '나는 과제를 할 때',
-                    answer: { a: '계획부터 세운다.', b: '일단 시작한다.' },
-                },{
-                    question: '나는 과제를 할 때',
-                    answer: { a: '계획부터 세운다.', b: '일단 시작한다.' },
-                },{
-                    question: '나는 과제를 할 때',
-                    answer: { a: '계획부터 세운다.', b: '일단 시작한다.' },
-                },{
-                    question: '나는 과제를 할 때',
-                    answer: { a: '계획부터 세운다.', b: '일단 시작한다.' },
-                },{
-                    question: '나는 과제를 할 때',
-                    answer: { a: '계획부터 세운다.', b: '일단 시작한다.' },
-                },{
                     question: '나는 과제를 할 때',
                     answer: { a: '계획부터 세운다.', b: '일단 시작한다.' },
                 },
@@ -70,15 +31,30 @@ class PersonalTest {
         }; // 질문 모음
         this.results = []; // 사용자가 선택한 답모음
         this.init();
+        this.render();
     }
 
     init() {
         this.questionArray = this.getQuestion(); // 질문을 배열로 저장
+
+        this.container.querySelector('button[data-answer="a"]').addEventListener('click', () => { this.submitAnswer(this.getCurrentQuestions().answer.a); });
+        this.container.querySelector('button[data-answer="b"]').addEventListener('click', () => { this.submitAnswer(this.getCurrentQuestions().answer.b); });
+        this.container.querySelector('button[data-action="start"]').addEventListener('click', () => { this.start(); });
+        this.container.querySelector('button[data-action="restart"]').addEventListener('click', () => { this.restart(); });
     }
 
     start() {
         if(this.progress !== 0) return; // 진행중이면 실행하지 않음
-        console.log(this.getCurrentQuestions()) // 브라우저 개발자 도구에 log 출력 용도
+        this.page = 1;
+        this.render();
+        return this.getCurrentQuestions();
+    }
+
+    restart() {
+        this.page = 1;
+        this.progress = 0;
+        this.results = [];
+        this.render();
         return this.getCurrentQuestions();
     }
 
@@ -92,9 +68,11 @@ class PersonalTest {
     }
 
     submitAnswer(answer) {
-        if(this.questionArray.length <= this.progress){ // 질문이 끝났으면
+        if(this.questionArray.length <= this.progress + 1){ // 질문이 끝났으면
             console.log('더이상 질문이 없습니다.');
-            return `당신의 성향은 ${this.calcResult()}입니다.`;
+            this.page = 2;
+            this.render();
+            return;
         }
 
         this.results.push({
@@ -105,6 +83,7 @@ class PersonalTest {
             })
         }); // 사용자가 선택한 답을 results에 추가 (type: 질문의 키, answer: 사용자가 선택한 답의 키)
         this.progress++; // 질문 단계 증가
+        this.render();
         return this.getCurrentQuestions();
     }
 
@@ -139,5 +118,24 @@ class PersonalTest {
         }, "");
     }
 
-    render() {} // 추후 dom에 내용을 바꾸기 위한 함수 작성
+    render() {
+        if(this.page === 0){
+            this.container.querySelector('.intro_container').classList.add('active');
+            this.container.querySelector('.test_container').classList.remove('active');
+            this.container.querySelector('.result_container').classList.remove('active');
+        }else if(this.page === 1){
+            this.container.querySelector('.test_container').classList.add('active');
+            this.container.querySelector('.intro_container').classList.remove('active');
+            this.container.querySelector('.result_container').classList.remove('active');
+            this.container.querySelector('.progress').textContent = `Q${this.progress + 1}. `
+            this.container.querySelector('.question').textContent = `${this.getCurrentQuestions().question}`;
+            this.container.querySelector('button[data-answer="a"]').textContent = `${this.getCurrentQuestions().answer.a}`;
+            this.container.querySelector('button[data-answer="b"]').textContent = `${this.getCurrentQuestions().answer.b}`;
+        }else if(this.page === 2){
+            this.container.querySelector('.result_container').classList.add('active');
+            this.container.querySelector('.intro_container').classList.remove('active');
+            this.container.querySelector('.test_container').classList.remove('active');
+            this.container.querySelector('.result_text').innerHTML = `당신의 성향은 <strong>${this.calcResult()}</strong>입니다.`;
+        }
+    } // 추후 dom에 내용을 바꾸기 위한 함수 작성
 }
