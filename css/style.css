@@ -1,9 +1,12 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: inherit;
     color: #fff;
+    font-family: 'Pretendard';
 }
 
 body {
@@ -71,4 +74,9 @@ body {
 
 .content_container.active{
     display: flex;
+}
+
+.point_text {
+    color: rgb(248, 193, 129);
+    font-weight: 600;
 }

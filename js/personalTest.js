@@ -7,7 +7,7 @@ class PersonalTest {
             EI: [
                 {
                     question: '나는 혼자있을때 더 편안함을 느낀다.',
-                    answer: { a: '그렇다', b: '아니다' },
+                    answer: { b: '그렇다', a: '아니다' },
                 },
             ],
             SN: [
@@ -31,31 +31,34 @@ class PersonalTest {
         }; // 질문 모음
         this.results = []; // 사용자가 선택한 답모음
         this.init();
-        this.render();
     }
 
     init() {
         this.questionArray = this.getQuestion(); // 질문을 배열로 저장
 
-        this.container.querySelector('button[data-answer="a"]').addEventListener('click', () => { this.submitAnswer(this.getCurrentQuestions().answer.a); });
-        this.container.querySelector('button[data-answer="b"]').addEventListener('click', () => { this.submitAnswer(this.getCurrentQuestions().answer.b); });
-        this.container.querySelector('button[data-action="start"]').addEventListener('click', () => { this.start(); });
-        this.container.querySelector('button[data-action="restart"]').addEventListener('click', () => { this.restart(); });
+        this.container.querySelector('button[data-answer="a"]')
+        .addEventListener('click', this.submitAnswer.bind(this, this.getCurrentQuestions().answer.a));
+        this.container.querySelector('button[data-answer="b"]')
+        .addEventListener('click', this.submitAnswer.bind(this, this.getCurrentQuestions().answer.b));
+        this.container.querySelector('button[data-action="start"]')
+        .addEventListener('click', this.start.bind(this));
+        this.container.querySelector('button[data-action="restart"]')
+        .addEventListener('click', this.restart.bind(this));
+
+        this.render();
     }
 
     start() {
         if(this.progress !== 0) return; // 진행중이면 실행하지 않음
         this.page = 1;
         this.render();
-        return this.getCurrentQuestions();
     }
 
     restart() {
-        this.page = 1;
+        this.page = 0;
         this.progress = 0;
         this.results = [];
         this.render();
-        return this.getCurrentQuestions();
     }
 
     getQuestion() { // questions의 키를 참조해서 질문을 반환
@@ -134,7 +137,7 @@ class PersonalTest {
             this.container.querySelector('.result_container').classList.add('active');
             this.container.querySelector('.intro_container').classList.remove('active');
             this.container.querySelector('.test_container').classList.remove('active');
-            this.container.querySelector('.result_text').innerHTML = `당신의 성향은 <strong>${this.calcResult()}</strong>입니다.`;
+            this.container.querySelector('.result_text').innerHTML = `당신의 성향은 <span class="point_text">${this.calcResult()}</span>입니다.`;
         }
     } // 추후 dom에 내용을 바꾸기 위한 함수 작성
 }
