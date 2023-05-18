@@ -30,6 +30,13 @@ class PersonalTest {
             ],
         }; // 질문 모음
         this.results = []; // 사용자가 선택한 답모음
+        this.resultInfors = {
+            ISTJ: {
+                title: '무조건 끝까지 해내는 당신!',
+                desc: '당신은 무조건 끝까지 해내는 사람입니다'
+            },
+            // ...
+        }
         this.init();
     }
 
@@ -37,9 +44,9 @@ class PersonalTest {
         this.questionArray = this.getQuestion(); // 질문을 배열로 저장
 
         this.container.querySelector('button[data-answer="a"]')
-        .addEventListener('click', this.submitAnswer.bind(this, this.getCurrentQuestions().answer.a));
+        .addEventListener('click', e => this.submitAnswer(e.target.innerText));
         this.container.querySelector('button[data-answer="b"]')
-        .addEventListener('click', this.submitAnswer.bind(this, this.getCurrentQuestions().answer.b));
+        .addEventListener('click', e => this.submitAnswer(e.target.innerText));
         this.container.querySelector('button[data-action="start"]')
         .addEventListener('click', this.start.bind(this));
         this.container.querySelector('button[data-action="restart"]')
@@ -74,8 +81,11 @@ class PersonalTest {
         if(this.questionArray.length <= this.progress + 1){ // 질문이 끝났으면
             this.page = 2;
             this.render();
-            return;
         }
+
+        console.log(this.questionArray[this.progress].answer)
+        console.log(answer)
+        console.log(Object.entries(this.questionArray[this.progress].answer).find(([key, value]) => value === answer))
 
         this.results.push({
             type: this.questionArray[this.progress].type,
@@ -107,7 +117,7 @@ class PersonalTest {
             if(!totalResult[cur].b) return acc + cur[0]; // b가 없으면 a를 반환
 
             if(totalResult[cur].a === totalResult[cur].b){ // a와 b가 같으면
-                acc += '★';
+                acc += cur[0];
                 return acc;
             }
             if(totalResult[cur].a > totalResult[cur].b){ // a가 b보다 크면
