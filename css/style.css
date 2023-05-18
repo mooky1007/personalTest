@@ -25,12 +25,24 @@ body {
     min-height: 600px;
 }
 
-.content_container > h1,
+.content_container > h1 {
+    font-weight: 500;
+    font-size: 18px;
+    word-break: keep-all;
+    margin-bottom: 30px;
+}
 .content_container > h2 {
     font-weight: 500;
     font-size: 14px;
     word-break: keep-all;
     margin-bottom: 30px;
+}
+
+.intro_container img {
+    max-width: 100px;
+    margin-bottom: 20px;
+    position: relative;
+    right: 5px;
 }
 
 .test_container .answer_container {
@@ -44,7 +56,8 @@ body {
 .content_container button {
     display: block;
     border: none;
-    background: #666;
+    background: rgb(165 119 65);
+    max-width: 250px;
     padding: 0 20px;
     width: 100%;
     height: 40px;
