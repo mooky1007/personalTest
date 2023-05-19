@@ -5,9 +5,9 @@ class PersonalTest {
         this.progress = 0; // 현재 질문 단계
         this.questions = {
             EI: [{ question: '나는 혼자있을때 더 편안함을 느낀다.', answer: { b: '그렇다', a: '아니다' } }],
-            SN: [{ question: '재밌는 영화를 보고 난 후 나는...', answer: { a: '재밌었다. 밥이나 먹으러 가야지', b: '인터넷에서 영화 해석을 검색해본다.' } }],
+            SN: [{ question: '나는 아무 생각도 안할 수 있다.', answer: { a: '그렇다', b: '아무 생각도 안하는 생각도 생각 아닌가?' } }],
             TF: [{ question: '누군가 나를 싫어하는 걸 알았을 때.', answer: { a: '어쩌라는건지', b: '왜 나를 싫어할까?' } }],
-            JP: [{ question: '나는 과제를 할 때', answer: { a: '계획부터 세운다.', b: '일단 시작한다.' } }],
+            JP: [{ question: '당신의 방을 깨끗한가요?', answer: { a: '그렇다', b: '아니다' } }],
         }; // 질문 모음
         this.results = []; // 사용자가 선택한 답모음
         this.resultInfors = {
